@@ -8,7 +8,6 @@
     tools:context=".MainActivity"
     >
 
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="340dp"
@@ -122,6 +121,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
         android:background="#7580bd"
+        android:onClick="onClickReset"
         android:text="@string/button_clean"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/buttonDivision"
@@ -239,6 +239,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#7580bd"
+        android:onClick="onClickPlus"
         android:text="@string/button_plus"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/button9"
@@ -263,6 +264,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#7580bd"
+        android:onClick="onClickResult"
         android:text="@string/button_result"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/buttonPlus"
