@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.awt.font.TextAttribute;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,7 +15,8 @@ public class MainActivity extends AppCompatActivity {
     double carrentValue = 0;
     double hiddenValue = 0;
     Operations operation;
-    private enum Operations{PLUS,MINUS,DIVISION,MULTIPLY}
+
+    private enum Operations {PLUS, MINUS, DIVISION, MULTIPLY, PERCENT}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         Button button9 = findViewById(R.id.button9);
 
         screenView = findViewById(R.id.textView1);
-
         button0.setOnClickListener((v) -> numberClick(0));
         button1.setOnClickListener((v) -> numberClick(1));
         button2.setOnClickListener((v) -> numberClick(2));
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         button7.setOnClickListener((v) -> numberClick(7));
         button8.setOnClickListener((v) -> numberClick(8));
         button9.setOnClickListener((v) -> numberClick(9));
-
     }
 
     @Override
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private void  numberClick(int number){
-        carrentValue = carrentValue*10 + number;
+    private void numberClick(int number) {
+        carrentValue = carrentValue * 10 + number;
         screenView.setText(String.valueOf(carrentValue));
     }
 
@@ -81,14 +81,18 @@ public class MainActivity extends AppCompatActivity {
     public void onClickReset(View view) {
         screenView.setText("0");
         carrentValue = 0;
-        new AlertDialog.Builder(this)
-                .setTitle("info")
-                .setMessage("Reset is done")
-                .setPositiveButton("OK",null)
-                .show();
+//        new AlertDialog.Builder(this)
+//                .setTitle("info")
+//                .setMessage("Reset is done")
+//                .setPositiveButton("OK", null)
+//                .show();
     }
 
     public void onClickPlus(View view) {
+        if (hiddenValue != 0) {
+            onClickReset(null);
+            return;
+        }
         hiddenValue = carrentValue;
         carrentValue = 0;
         screenView.setText("0");
@@ -96,15 +100,81 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickResult(View view) {
-        if(operation == Operations.PLUS){
-           carrentValue = hiddenValue + carrentValue;
+        if (operation == Operations.PLUS) {
+            carrentValue = hiddenValue + carrentValue;
+        } else if (operation == Operations.MINUS) {
+            carrentValue = hiddenValue - carrentValue;
+        } else if (operation == Operations.MULTIPLY) {
+            carrentValue = hiddenValue * carrentValue;
+        } else if (operation == Operations.DIVISION) {
+            carrentValue = hiddenValue / carrentValue;
+        } else if (operation == Operations.PERCENT) {
+            carrentValue = (carrentValue * 100) / hiddenValue;
         }
         hiddenValue = 0;
         screenView.setText(String.valueOf(carrentValue));
     }
 
+    public void onClickMinus(View view) {
+        if (hiddenValue != 0) {
+            onClickReset(null);
+            return;
+        }
+        hiddenValue = carrentValue;
+        carrentValue = 0;
+        screenView.setText("0");
+        operation = Operations.MINUS;
+    }
+
+    public void onClickPercent(View view) {
+        if (hiddenValue != 0) {
+            onClickReset(null);
+            return;
+        }
+        hiddenValue = carrentValue;
+        carrentValue = 0;
+        screenView.setText("0");
+        operation = Operations.PERCENT;
+    }
+
+    public void onClickMultiply(View view) {
+        if (hiddenValue != 0) {
+            onClickReset(null);
+            return;
+        }
+        hiddenValue = carrentValue;
+        carrentValue = 0;
+        screenView.setText("0");
+        operation = Operations.MULTIPLY;
+    }
+
+    public void onClickDivision(View view) {
+        if (hiddenValue != 0) {
+            onClickReset(null);
+            return;
+        }
+        hiddenValue = carrentValue;
+        carrentValue = 0;
+        screenView.setText("0");
+        operation = Operations.DIVISION;
 
 
 
+//        if (carrentValue != 0) {
+//            new AlertDialog.Builder(this)
+//                    .setTitle("info")
+//                    .setMessage("Division on 0!")
+//                    .setPositiveButton("OK", null)
+//                    .show();
+//        } else {
+//            if (hiddenValue != 0) {
+//                onClickReset(null);
+//                return;
+//            }
+//            hiddenValue = carrentValue;
+//            carrentValue = 0;
+//            screenView.setText("0");
+//            operation = Operations.DIVISION;
+        }
+    }
 
-}
